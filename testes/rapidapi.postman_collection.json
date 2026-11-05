@@ -1,0 +1,576 @@
+{
+  "info": {
+    "name": "Sistema de Ingressos - RapidAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Requisições para reprodução manual dos contratos REST. Atualize os IDs das criações antes dos PUTs e DELETEs. Os nomes indicam os status esperados para bancos recém-carregados. Os casos de indisponibilidade exigem desligar a dependência indicada."
+  },
+  "variable": [
+    {
+      "key": "eventos_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "participantes_url",
+      "value": "http://localhost:3002",
+      "type": "string"
+    },
+    {
+      "key": "ingressos_url",
+      "value": "http://localhost:3003",
+      "type": "string"
+    },
+    {
+      "key": "evento_criado_id",
+      "value": "6",
+      "type": "string"
+    },
+    {
+      "key": "participante_criado_id",
+      "value": "6",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Eventos",
+      "item": [
+        {
+          "name": "200 - Listar eventos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos"
+          }
+        },
+        {
+          "name": "200 - Filtrar cidade",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos?cidade=Trindade"
+          }
+        },
+        {
+          "name": "200 - Filtrar cidade e data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos?cidade=Trindade&a_partir_de=2026-11-01"
+          }
+        },
+        {
+          "name": "200 - Buscar evento",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos/1"
+          }
+        },
+        {
+          "name": "201 - Criar evento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Festival de Música\",\n  \"local\": \"Centro Cultural\",\n  \"cidade\": \"Trindade\",\n  \"data_evento\": \"2030-12-05T20:00:00Z\",\n  \"capacidade\": 20,\n  \"preco\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "200 - Alterar evento criado",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos/{{evento_criado_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Festival atualizado\",\n  \"local\": \"Centro Cultural\",\n  \"cidade\": \"Trindade\",\n  \"data_evento\": \"2030-12-05T20:00:00Z\",\n  \"capacidade\": 25,\n  \"preco\": 50\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "201 - Reservar vagas no evento criado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos/{{evento_criado_id}}/reservas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantidade\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "204 - Excluir evento criado",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{eventos_url}}/eventos/{{evento_criado_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Participantes",
+      "item": [
+        {
+          "name": "200 - Listar com CPF mascarado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes"
+          }
+        },
+        {
+          "name": "200 - Buscar nome parcial",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes?nome=MARIA"
+          }
+        },
+        {
+          "name": "200 - Buscar participante",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes/1"
+          }
+        },
+        {
+          "name": "201 - Criar participante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Pessoa de Exemplo\",\n  \"email\": \"pessoa@example.com\",\n  \"cpf\": \"67890123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "200 - Alterar participante criado",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes/{{participante_criado_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Pessoa Atualizada\",\n  \"email\": \"pessoa@example.com\",\n  \"cpf\": \"67890123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "204 - Excluir participante criado",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes/{{participante_criado_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ingressos",
+      "item": [
+        {
+          "name": "201 - Comprar ingresso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 1,\n  \"quantidade\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "200 - Listar ingressos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos"
+          }
+        },
+        {
+          "name": "200 - Filtrar participante e evento",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos?participante_id=1&evento_id=1"
+          }
+        },
+        {
+          "name": "200 - Detalhe composto com HATEOAS",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Falhas",
+      "item": [
+        {
+          "name": "400 - Quantidade inválida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 1,\n  \"quantidade\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - Participante ausente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 999999,\n  \"evento_id\": 1,\n  \"quantidade\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - Evento ausente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 999999,\n  \"quantidade\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - Evento passado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 3,\n  \"quantidade\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "409 - Vagas insuficientes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 2,\n  \"quantidade\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "409 - E-mail duplicado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{participantes_url}}/participantes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Duplicado\",\n  \"email\": \"maria@example.com\",\n  \"cpf\": \"89012345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "404 - Ingresso ausente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos/999999"
+          }
+        },
+        {
+          "name": "503 - Desligue Eventos antes desta consulta",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos/1"
+          }
+        },
+        {
+          "name": "503 - Desligue Eventos antes desta compra",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{ingressos_url}}/ingressos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"participante_id\": 1,\n  \"evento_id\": 1,\n  \"quantidade\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

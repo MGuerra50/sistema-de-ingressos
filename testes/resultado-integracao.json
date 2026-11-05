@@ -1,0 +1,64 @@
+{
+  "executado_em": "2026-11-05T13:44:18.596Z",
+  "node": "v22.12.0",
+  "plataforma": "win32",
+  "cenarios": [
+    "T01 - dados de exemplo, bancos isolados e saldos coerentes",
+    "T02 - sequências continuam depois dos IDs explícitos",
+    "T03 - CRUD de eventos e capacidade preservam reservas",
+    "T04 - filtros de eventos por cidade e data",
+    "T05 - validação de eventos, preços e datas",
+    "T06 - reservas distinguem validação, ausência e conflito",
+    "T07 - CRUD de participantes e máscara em todas as views",
+    "T08 - filtro parcial ILIKE e validação de participantes",
+    "T09 - unicidade de e-mail e CPF em criação e alteração",
+    "T10 - payloads inválidos de compra não alteram dados",
+    "T11 - participantes e eventos inexistentes geram 422",
+    "T12 - evento passado gera 422 sem consumir vagas",
+    "T13 - vagas insuficientes geram 409 sem criar ingresso",
+    "T14 - compra válida calcula centavos e preserva preço histórico",
+    "T15 - duas compras disputam a última vaga",
+    "T16 - trinta compras simultâneas respeitam dez vagas",
+    "T17 - filtros isolados e combinados de ingressos",
+    "T18 - detalhe compõe dados atuais e links dos três serviços",
+    "T19 - IDs, filtros e recursos inexistentes usam 400 e 404",
+    "T20 - Eventos desligado gera 503 e tem tempo de resposta medido",
+    "T21 - Participantes desligado afeta somente operações dependentes",
+    "T22 - respostas 5xx, JSON inválido e contrato remoto inválido geram 503",
+    "T23 - timeout limita espera antes e durante a leitura do JSON",
+    "T24 - falha local após reserva evidencia a inconsistência documentada",
+    "T25 - total monetário excedente é rejeitado antes da reserva",
+    "T26 - exclusão remota mantém ingresso e explica dado associado indisponível",
+    "T27 - JSON inválido e corpos excessivos têm respostas JSON padronizadas"
+  ],
+  "postgresql": "17.2",
+  "detalhe_normal": {
+    "status": 200,
+    "tempos_ms": [
+      8.85,
+      10.22,
+      8.58,
+      8.7,
+      5.96
+    ],
+    "media_ms": 8.46
+  },
+  "detalhe_eventos_desligado": {
+    "status": 503,
+    "tempos_ms": [
+      6.37,
+      5.76,
+      4.9,
+      5.53,
+      5.94
+    ],
+    "media_ms": 5.7
+  },
+  "timeout_ms": [
+    2113.99,
+    2024.51
+  ],
+  "quantidade_cenarios_aprovados": 27,
+  "total_cenarios": 27,
+  "sucesso": true
+}
